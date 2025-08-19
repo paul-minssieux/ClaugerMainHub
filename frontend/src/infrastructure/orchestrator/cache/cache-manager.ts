@@ -303,5 +303,9 @@ if (typeof window !== 'undefined' && featureFlags.enableCache) {
     if (!health.healthy) {
       console.warn('[CacheManager] Health issues detected:', health.issues)
     }
-  }, 5 * 60 * 1000)
+export const cacheManager = new CacheManager();
+
+// Démarrage explicite des tâches périodiques
+if (typeof window !== 'undefined' && featureFlags.enableCache) {
+  cacheManager.start();
 }
