@@ -56,7 +56,7 @@ export function getPiralConfig(): PiralInstanceConfig {
   const configs: Record<string, PiralInstanceConfig> = {
     development: {
       feedUrl: import.meta.env.VITE_PIRAL_FEED_URL || import.meta.env.VITE_PILETS_FEED_URL || '/api/v1/pilets',
-      debug: import.meta.env.VITE_PIRAL_DEBUG === 'true' || (environment === 'development' && !import.meta.env.VITE_PIRAL_DEBUG),
+      debug: shouldEnableDebug(environment, import.meta.env.VITE_PIRAL_DEBUG),
       strictMode: import.meta.env.VITE_PIRAL_STRICT_MODE !== 'false',
       async: true,
       cacheOptions,
