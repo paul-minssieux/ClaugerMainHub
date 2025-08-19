@@ -130,11 +130,13 @@ export class EventBusService {
     const messageLevel = logLevels.indexOf(level)
     
     if (messageLevel >= configLevel) {
-      const logMethod = console[level as keyof Console] || console.log
-      if (data !== undefined) {
-        logMethod(`[EventBus] ${message}`, data)
-      } else {
-        logMethod(`[EventBus] ${message}`)
+      const logMethod = (console[level as keyof Console] as any) || console.log
+      if (typeof logMethod === 'function') {
+        if (data !== undefined) {
+          logMethod(`[EventBus] ${message}`, data)
+        } else {
+          logMethod(`[EventBus] ${message}`)
+        }
       }
     }
   }

@@ -27,7 +27,7 @@ export class XSSProtection {
     })
     
     // Hook pour valider les URLs
-    this.purifier.addHook('uponSanitizeAttribute', (node, data) => {
+    this.purifier.addHook('uponSanitizeAttribute', (_, data) => {
       if (data.attrName === 'href' || data.attrName === 'src') {
         const url = data.attrValue
         if (!this.isValidUrl(url)) {

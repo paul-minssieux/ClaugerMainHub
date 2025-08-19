@@ -4,305 +4,59 @@
  */
 
 import React from 'react'
-import { createInstance } from 'piral-core'
-import { createMenuApi } from 'piral-menu'
-import { createNotificationsApi } from 'piral-notifications'
-import { createModalsApi } from 'piral-modals'
-import { createDashboardApi } from 'piral-dashboard'
-import { Box, Flex, Heading, Text, Spinner, Button, Alert as ChakraAlert } from '@chakra-ui/react'
-import { FocusManager } from '@/accessibility/FocusManager'
-import { createMainHubApi, createExtendedApi } from '../api/mainhub-api'
-import { getPiralConfig, validateConfig, featureFlags } from './piral-config'
-import type { ClaugerPiletMetadata } from './piral-types'
-
-// Récupérer la configuration
-const config = getPiralConfig()
-
-// Valider la configuration
-if (!validateConfig(config)) {
-  console.error('[Piral] Invalid configuration')
-}
+import { Piral } from 'piral'
+import { getPiralInstance } from './create-instance'
+import { ChakraProvider } from '@chakra-ui/react'
+import { theme } from '@/theme/accessible-theme'
+import { ErrorBoundary } from './error-components'
+import type { PiralInstance } from './create-instance'
 
 /**
- * Composant de layout principal
+ * Instance Piral configurée et exportée
  */
-const MainHubLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const instance = getPiralInstance()
+
+/**
+ * Composant racine de l'application avec tous les providers
+ */
+export const PiralApp: React.FC = () => {
   return (
-    <FocusManager>
-      <div className="app-container">
-        {/* Skip Navigation Links */}
-        <a href="#main-content" className="skip-link">
-          Aller au contenu principal
-        </a>
-        <a href="#main-navigation" className="skip-link">
-          Aller à la navigation
-        </a>
-        
-        {/* Live Regions pour les annonces */}
-        <div
-          id="live-announcer"
-          aria-live="polite"
-          aria-atomic="true"
-          className="sr-only"
-        />
-        <div
-          id="assertive-announcer"
-          aria-live="assertive"
-          aria-atomic="true"
-          className="sr-only"
-        />
-        
-        {/* Structure principale */}
-        <Flex direction="column" minH="100vh">
-          {/* Header */}
-          <Box
-            as="header"
-            role="banner"
-            bg="white"
-            borderBottom="1px"
-            borderColor="gray.200"
-            px={4}
-            py={3}
-          >
-            <Heading
-              as="h1"
-              size="lg"
-              color="gray.800"
-              id="app-title"
-            >
-              ClaugerMainHub - Piral
-            </Heading>
-          </Box>
-          
-          {/* Main Content Area */}
-          <Flex flex="1">
-            {/* Navigation Sidebar */}
-            <Box
-              as="nav"
-              role="navigation"
-              aria-label="Navigation principale"
-              id="main-navigation"
-              w="280px"
-              bg="gray.50"
-              borderRight="1px"
-              borderColor="gray.200"
-              p={4}
-            >
-              <div id="piral-menu-container" />
-            </Box>
-            
-            {/* Main Content */}
-            <Box
-              as="main"
-              role="main"
-              id="main-content"
-              flex="1"
-              p={6}
-              aria-labelledby="app-title"
-            >
-              {children}
-            </Box>
-          </Flex>
-        </Flex>
-      </div>
-    </FocusManager>
+    <ErrorBoundary>
+      <ChakraProvider theme={theme}>
+        <Piral instance={instance} />
+      </ChakraProvider>
+    </ErrorBoundary>
   )
 }
 
-/**
- * Composant d'indicateur de chargement
- */
-const LoadingIndicator: React.FC = () => {
-  return (
-    <Flex
-      direction="column"
-      align="center"
-      justify="center"
-      minH="400px"
-      role="status"
-      aria-label="Chargement en cours"
-    >
-      <Spinner
-        size="xl"
-        color="blue.500"
-      />
-      <Text mt={4} color="gray.600">
-        Chargement des modules...
-      </Text>
-    </Flex>
-  )
-}
+// Export des types pour les pilets
+export type { PiralInstance }
+export type PiletApi = PiralInstance extends { createApi: (pilet: any) => infer T } ? T : never
 
-/**
- * Composant d'erreur
- */
-const ErrorInfo: React.FC<{ error: Error }> = ({ error }) => {
-  return (
-    <ChakraAlert
-      status="error"
-      variant="subtle"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      textAlign="center"
-      height="200px"
-      role="alert"
-    >
-      <Text mt={4} mb={1} fontSize="lg" fontWeight="bold">
-        Erreur de chargement
-      </Text>
-      <Text fontSize="sm" color="gray.600" mb={4}>
-        {error.message || 'Une erreur inattendue s\'est produite'}
-      </Text>
-      <Button
-        size="sm"
-        colorScheme="red"
-        onClick={() => window.location.reload()}
-      >
-        Recharger la page
-      </Button>
-    </ChakraAlert>
-  )
-}
-
-/**
- * Page d'accueil par défaut
- */
-const HomePage: React.FC = () => {
-  return (
-    <Box>
-      <Heading as="h2" size="md" mb={4}>
-        Bienvenue sur ClaugerMainHub
-      </Heading>
-      <Text mb={4}>
-        Orchestrateur micro-frontend avec Piral configuré avec succès.
-      </Text>
-      <Text fontSize="sm" color="gray.600">
-        ✅ Instance Piral active
-        <br />
-        ✅ API MainHub disponible
-        <br />
-        ✅ EventBus connecté
-        <br />
-        ✅ Accessibilité WCAG 2.1 AA
-        <br />
-        ✅ Thème Chakra UI intégré
-      </Text>
-    </Box>
-  )
-}
-
-/**
- * Page non trouvée
- */
-const NotFoundPage: React.FC = () => {
-  return (
-    <Box textAlign="center" py={10}>
-      <Heading as="h2" size="xl" mb={4}>
-        404 - Page non trouvée
-      </Heading>
-      <Text color="gray.600">
-        La page que vous recherchez n'existe pas.
-      </Text>
-    </Box>
-  )
-}
-
-/**
- * Composant d'erreur de chargement
- */
-const LoadingError: React.FC<{ error: Error }> = ({ error }) => {
-  return (
-    <ChakraAlert status="warning" role="alert">
-      <Box>
-        <Text fontWeight="bold">Impossible de charger le module</Text>
-        <Text fontSize="sm">{error.message}</Text>
-      </Box>
-    </ChakraAlert>
-  )
-}
-
-/**
- * Fonction pour récupérer les pilets
- */
-async function fetchPilets(): Promise<ClaugerPiletMetadata[]> {
-  try {
-    // En développement, on peut avoir des pilets en local
-    if (import.meta.env.MODE === 'development' && featureFlags.enablePiralDebugger) {
-      console.log('[Piral] Fetching pilets from:', config.feedUrl)
-    }
-
-    const response = await fetch(config.feedUrl, {
-      method: 'GET',
-      headers: config.requestOptions?.headers || {},
-      signal: AbortSignal.timeout(config.requestOptions?.timeout || 10000),
-    })
-
-    if (!response.ok) {
-      throw new Error(`Feed service returned ${response.status}`)
-    }
-
-    const data = await response.json()
-    
-    // Filtrer les pilets selon les permissions (sera implémenté dans UC 4.x)
-    const pilets = data.items || []
-    
-    console.log(`[Piral] Loaded ${pilets.length} pilets`)
-    return pilets
-  } catch (error) {
-    console.warn('[Piral] Failed to fetch pilets:', error)
-    
-    // En cas d'erreur, retourner une liste vide pour permettre le démarrage
-    // Les pilets pourront être chargés plus tard
-    return []
+// Configuration globale pour le développement
+if (import.meta.env.DEV) {
+  ;(window as any).dbg = {
+    instance,
   }
-}
-
-/**
- * Création de l'instance Piral
- */
-export const piralInstance = createInstance({
-  state: {
-    components: {
-      LoadingIndicator,
-      ErrorInfo,
-      DashboardContainer: () => <Box id="piral-dashboard" />,
-      Layout: MainHubLayout,
-    },
-    errorComponents: {
-      not_found: NotFoundPage,
-      loading_error: LoadingError,
-    },
-    routes: {
-      '/': HomePage,
-    },
-  },
-  plugins: [
-    createMenuApi(),
-    createNotificationsApi(),
-    createModalsApi(),
-    createDashboardApi(),
-    createMainHubApi(),
-    // Ajouter les extensions supplémentaires
-    () => createExtendedApi(),
-  ],
-  requestPilets: fetchPilets,
-  async: true,
-  strictMode: config.strictMode,
-  debug: config.debug ? {
-    viewState: true,
-    loadPilets: true,
-    dependency: true,
-    extensionCatalogue: true,
-  } : undefined,
-})
-
-// Export du type de l'API pour les pilets
-export type PiralApi = typeof piralInstance
-
-// Monitoring des performances en développement
-if (import.meta.env.MODE === 'development') {
-  piralInstance.on('store-data', (data) => {
-    console.log('[Piral] Store updated:', data)
+  
+  console.log('🚀 ClaugerMainHub Piral Instance initialized', {
+    version: import.meta.env.VITE_APP_VERSION || '1.0.0',
+    environment: import.meta.env.MODE,
   })
 }
+
+// Hot Module Replacement support
+if (import.meta.hot) {
+  import.meta.hot.accept('./create-instance', () => {
+    console.log('🔄 Hot reloading Piral instance...')
+    window.location.reload()
+  })
+}
+
+// Re-export components from error-components for backwards compatibility
+export { LoadingIndicator, ErrorInfo, NotFound as NotFoundPage, PageError as LoadingError } from './error-components'
+export { Layout } from './layout'
+
+// Export fetch function from feed service
+export { feedService } from '../feed/feed-service'
+export const fetchPilets = () => feedService.getAvailablePilets()

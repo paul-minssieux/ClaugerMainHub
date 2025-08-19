@@ -65,7 +65,11 @@
       "Bash(git merge:*)",
       "Bash(mv:*)",
       "WebSearch",
-      "Bash(timeout 10s npm run dev)"
+      "Bash(timeout 10s npm run dev)",
+      "Bash(sed:*)",
+      "WebFetch(domain:www.chakra-ui.com)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vite:*)"
     ],
     "deny": [],
     "ask": []

@@ -47,11 +47,13 @@ const customConfig = defineConfig({
   },
   globalCss: {
     // Respect des préférences utilisateur
-    '@media (prefers-reduced-motion: reduce)': {
-      '*': {
-        animationDuration: '0.01ms !important',
-        animationIterationCount: '1 !important',
-        transitionDuration: '0.01ms !important',
+    'body': {
+      '@media (prefers-reduced-motion: reduce)': {
+        '& *': {
+          animationDuration: '0.01ms !important',
+          animationIterationCount: '1 !important',
+          transitionDuration: '0.01ms !important',
+        }
       }
     },
     

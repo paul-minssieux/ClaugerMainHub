@@ -4,7 +4,33 @@ import { resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'piral-codegen',
+      resolveId(id) {
+        if (id.endsWith('app.codegen')) {
+          return id;
+        }
+      },
+      load(id) {
+        if (id.endsWith('app.codegen')) {
+          return `
+            export const useRouteFilter = () => (route) => true;
+            export const applyStyle = () => {};
+            export const getSharedDependencies = () => ({});
+            export const createDefaultState = () => ({});
+            export const createNavigation = () => ({ publicPath: '/' });
+            export const publicPath = '/';
+            export const createRedirect = (path) => path;
+            export const fillDependencies = () => ({});
+            export const integrateDebugger = () => {};
+            export const integrateEmulator = () => {};
+          `;
+        }
+      }
+    }
+  ],
   
   resolve: {
     alias: {

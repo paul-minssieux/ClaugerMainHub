@@ -214,7 +214,7 @@ export function createMainHubApi() {
       sharedState.widgets.set(widget.id, widget)
       
       // Utiliser l'API dashboard de Piral si disponible
-      if ('registerTile' in context && context.registerTile) {
+      if ('registerTile' in context && typeof context.registerTile === 'function') {
         (context as any).registerTile({
           id: widget.id,
           component: widget.component,
@@ -236,11 +236,12 @@ export function createMainHubApi() {
      */
     subscribeToEvent(event: string, handler: Function): () => void {
       // S'abonner via l'EventBus
-      eventBus.on(event, handler)
+      const eventHandler = (data: unknown) => handler(data)
+      eventBus.on(event, eventHandler)
       
       // Retourner une fonction de désabonnement
       return () => {
-        eventBus.off(event, handler)
+        eventBus.off(event, eventHandler)
       }
     },
 
@@ -255,7 +256,7 @@ export function createMainHubApi() {
  * Extensions supplémentaires de l'API
  */
 export function createExtendedApi() {
-  return {
+  return (_context: any) => ({
     /**
      * API pour les notifications avancées
      */
@@ -374,5 +375,5 @@ export function createExtendedApi() {
         return () => {}
       },
     },
-  }
+  })
 }

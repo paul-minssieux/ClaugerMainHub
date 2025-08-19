@@ -217,9 +217,10 @@ export interface PiletFeedResponse {
  * Options de cache pour les pilets
  */
 export interface PiletCacheOptions {
+  ttl?: number // TTL en millisecondes (optionnel pour compatibilité)
   maxAge: number // TTL en millisecondes
   maxSize: number // Taille max du cache en MB
-  strategy: 'cache-first' | 'network-first' | 'cache-only'
+  strategy: 'cache-first' | 'network-first' | 'cache-only' | 'network-only'
   preloadCritical: boolean
 }
 

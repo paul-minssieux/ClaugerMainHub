@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClaugerMainHub - Mode Hors Ligne</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .offline-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 30px;
+      background: #f0f0f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .offline-icon svg {
+      width: 60px;
+      height: 60px;
+      fill: #667eea;
+    }
+
+    .offline-icon::after {
+      content: "";
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 30px;
+      height: 30px;
+      background: #ff6b6b;
+      border-radius: 50%;
+      border: 4px solid white;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .status {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 12px 20px;
+      margin-bottom: 30px;
+      color: #856404;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-icon {
+      width: 20px;
+      height: 20px;
+      fill: #ffc107;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #5a67d8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+
+    .secondary-btn:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    .cached-info {
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+
+    .cached-info h2 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .cached-list {
+      text-align: left;
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .cached-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .cached-item svg {
+      width: 16px;
+      height: 16px;
+      fill: #28a745;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .offline-icon {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="offline-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+    </div>
+
+    <h1>Mode Hors Ligne</h1>
+    
+    <p>
+      Vous êtes actuellement hors ligne. ClaugerMainHub continue de fonctionner avec les ressources mises en cache.
+    </p>
+
+    <div class="status">
+      <svg class="status-icon" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+      </svg>
+      <span>Tentative de reconnexion automatique...</span>
+    </div>
+
+    <div class="actions">
+      <button onclick="retryConnection()">
+        Réessayer maintenant
+      </button>
+      <button class="secondary-btn" onclick="goBack()">
+        Retour
+      </button>
+    </div>
+
+    <div class="cached-info">
+      <h2>Contenu disponible hors ligne</h2>
+      <div class="cached-list">
+        <div class="cached-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          <span>Tableau de bord principal</span>
+        </div>
+        <div class="cached-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          <span>Applications favorites</span>
+        </div>
+        <div class="cached-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          <span>Widgets personnalisés</span>
+        </div>
+        <div class="cached-item">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          <span>Données de configuration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Vérifier la connexion périodiquement
+    let retryCount = 0;
+    let retryInterval;
+
+    function checkConnection() {
+      fetch('/api/health', { method: 'HEAD' })
+        .then(() => {
+          // Connexion restaurée
+          window.location.reload();
+        })
+        .catch(() => {
+          // Toujours hors ligne
+          retryCount++;
+          if (retryCount > 10) {
+            clearInterval(retryInterval);
+            updateStatus('Hors ligne - Réessayez manuellement');
+          }
+        });
+    }
+
+    function retryConnection() {
+      retryCount = 0;
+      updateStatus('Tentative de reconnexion...');
+      checkConnection();
+      
+      if (retryInterval) {
+        clearInterval(retryInterval);
+      }
+      retryInterval = setInterval(checkConnection, 5000);
+    }
+
+    function goBack() {
+      if (history.length > 1) {
+        history.back();
+      } else {
+        window.location.href = '/';
+      }
+    }
+
+    function updateStatus(message) {
+      const statusElement = document.querySelector('.status span');
+      if (statusElement) {
+        statusElement.textContent = message;
+      }
+    }
+
+    // Démarrer la vérification automatique
+    retryInterval = setInterval(checkConnection, 5000);
+
+    // Écouter les événements online/offline
+    window.addEventListener('online', () => {
+      updateStatus('Connexion restaurée! Rechargement...');
+      setTimeout(() => window.location.reload(), 1000);
+    });
+
+    window.addEventListener('offline', () => {
+      updateStatus('Connexion perdue');
+    });
+  </script>
+</body>
+</html>
