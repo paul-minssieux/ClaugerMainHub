@@ -60,7 +60,12 @@
       "Bash(npm create:*)",
       "Bash(npx husky init:*)",
       "Bash(git init:*)",
-      "Bash(npm run type-check:*)"
+      "Bash(npm run type-check:*)",
+      "mcp__Github__get_issue",
+      "Bash(git merge:*)",
+      "Bash(mv:*)",
+      "WebSearch",
+      "Bash(timeout 10s npm run dev)"
     ],
     "deny": [],
     "ask": []

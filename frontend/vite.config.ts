@@ -55,6 +55,27 @@ export default defineConfig({
       '@emotion/react',
       '@emotion/styled',
       'framer-motion'
+    ],
+    exclude: [
+      'piral-core',
+      'piral-react',
+      'piral-notifications',
+      'piral-modals',
+      'piral-menu',
+      'piral-dashboard'
     ]
+  },
+
+  // Configuration spéciale pour Piral
+  define: {
+    // Éviter les erreurs de build avec Piral
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  },
+
+  // Configuration ESBuild pour les fichiers Piral
+  esbuild: {
+    loader: 'tsx',
+    include: /\.(tsx?|jsx?)$/,
+    exclude: []
   }
 })

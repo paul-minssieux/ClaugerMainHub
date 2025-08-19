@@ -8,9 +8,17 @@ export class EventBusService {
   private events: Map<string, Set<EventHandler>> = new Map()
   private eventHistory: Map<string, unknown[]> = new Map()
   private config: EventBusConfig
+  private static instance: EventBusService | null = null
 
   constructor(config: EventBusConfig) {
     this.config = config
+  }
+
+  static getInstance(): EventBusService {
+    if (!EventBusService.instance) {
+      EventBusService.instance = new EventBusService(eventBusConfig)
+    }
+    return EventBusService.instance
   }
 
   /**
@@ -83,6 +91,23 @@ export class EventBusService {
     }
   }
 
+  /**
+   * Alias for subscribe (for compatibility)
+   */
+  on(event: string, handler: EventHandler): void {
+    this.subscribe(event, handler)
+  }
+
+  /**
+   * Unsubscribe from an event
+   */
+  off(event: string, handler: EventHandler): void {
+    const handlers = this.events.get(event)
+    if (handlers) {
+      handlers.delete(handler)
+    }
+  }
+
   private addToHistory(event: string, data: unknown): void {
     if (!this.eventHistory.has(event)) {
       this.eventHistory.set(event, [])
@@ -124,3 +149,6 @@ const eventBusConfig: EventBusConfig = {
 
 // Export singleton instance
 export const eventBus = new EventBusService(eventBusConfig)
+
+// Export alias pour compatibilité
+export const EventBus = EventBusService

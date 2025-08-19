@@ -71,60 +71,60 @@ src/
 ## 📝 Tâches de Développement
 
 ### Phase 1: Setup et Configuration ⚙️
-- [ ] Initialiser projet Vite avec React 18.3+ et TypeScript 5.5+
-- [ ] Configurer TypeScript en mode strict avec paths aliases
-- [ ] Installer et configurer Chakra UI avec thème accessible
-- [ ] Configurer ESLint + Prettier avec règles Airbnb
-- [ ] Setup Husky + lint-staged pour pre-commit hooks
-- [ ] Générer certificats HTTPS pour développement local
+- [x] Initialiser projet Vite avec React 18.3+ et TypeScript 5.5+
+- [x] Configurer TypeScript en mode strict avec paths aliases
+- [x] Installer et configurer Chakra UI avec thème accessible
+- [x] Configurer ESLint + Prettier avec règles Airbnb
+- [x] Setup Husky + lint-staged pour pre-commit hooks
+- [ ] Générer certificats HTTPS pour développement local *(optionnel - reporté)*
 
 ### Phase 2: Architecture Core 🏗️
-- [ ] Créer structure de dossiers modulaire
-- [ ] Implémenter EventBus pour communication inter-modules
-- [ ] Créer API contract pour micro-frontends
-- [ ] Setup interfaces d'intégration (Azure AD, AppInsights)
-- [ ] Configurer store Redux Toolkit de base
-- [ ] Setup React Query pour cache API
+- [x] Créer structure de dossiers modulaire
+- [x] Implémenter EventBus pour communication inter-modules
+- [x] Créer API contract pour micro-frontends
+- [x] Setup interfaces d'intégration (Azure AD, AppInsights)
+- [ ] Configurer store Redux Toolkit de base *(préparé - à implémenter UC 1.2)*
+- [ ] Setup React Query pour cache API *(préparé - à implémenter UC 1.2)*
 
 ### Phase 3: Sécurité 🔒
-- [ ] Implémenter Content Security Policy dynamique
-- [ ] Setup protection XSS avec DOMPurify
-- [ ] Configurer protection CSRF
-- [ ] Créer EnvManager pour variables sécurisées
-- [ ] Préparer configuration Azure Entra ID (MSAL)
-- [ ] Implémenter headers de sécurité
+- [x] Implémenter Content Security Policy dynamique
+- [x] Setup protection XSS avec DOMPurify
+- [ ] Configurer protection CSRF *(préparé - à activer avec backend)*
+- [ ] Créer EnvManager pour variables sécurisées *(préparé - UC 2.1)*
+- [x] Préparer configuration Azure Entra ID (MSAL)
+- [x] Implémenter headers de sécurité
 
 ### Phase 4: Performance ⚡
-- [ ] Configurer code splitting et lazy loading
-- [ ] Optimiser build Vite (chunks, compression)
-- [ ] Implémenter service worker pour cache
-- [ ] Setup monitoring des Web Vitals
-- [ ] Configurer bundle analyzer
-- [ ] Optimiser assets (images, fonts)
+- [x] Configurer code splitting et lazy loading
+- [x] Optimiser build Vite (chunks, compression)
+- [ ] Implémenter service worker pour cache *(reporté UC 1.3)*
+- [ ] Setup monitoring des Web Vitals *(reporté UC 1.10)*
+- [x] Configurer bundle analyzer
+- [ ] Optimiser assets (images, fonts) *(reporté UC suivantes)*
 
 ### Phase 5: Accessibilité ♿
-- [ ] Créer structure HTML sémantique
-- [ ] Implémenter FocusManager et navigation clavier
-- [ ] Setup skip links et live regions
-- [ ] Configurer thème avec contrastes WCAG AA
-- [ ] Créer hooks d'accessibilité
-- [ ] Setup tests automatisés (axe-core, pa11y)
+- [x] Créer structure HTML sémantique
+- [x] Implémenter FocusManager et navigation clavier
+- [x] Setup skip links et live regions
+- [x] Configurer thème avec contrastes WCAG AA
+- [ ] Créer hooks d'accessibilité *(partiellement - à compléter)*
+- [x] Setup tests automatisés (axe-core, pa11y)
 
 ### Phase 6: Tests 🧪
-- [ ] Configurer Vitest avec jsdom
-- [ ] Setup MSW pour mocks API
-- [ ] Créer utils de test avec providers
-- [ ] Écrire tests unitaires structure (>80% coverage)
-- [ ] Configurer Playwright pour E2E
-- [ ] Setup tests d'accessibilité automatisés
+- [x] Configurer Vitest avec jsdom
+- [x] Setup MSW pour mocks API
+- [x] Créer utils de test avec providers
+- [ ] Écrire tests unitaires structure (>80% coverage) *(à compléter UC suivantes)*
+- [ ] Configurer Playwright pour E2E *(reporté UC 1.8)*
+- [x] Setup tests d'accessibilité automatisés
 
 ### Phase 7: Intégration & Documentation 📚
-- [ ] Initialiser Application Insights
-- [ ] Documenter API pour micro-frontends
-- [ ] Créer README avec instructions setup
-- [ ] Générer documentation JSDoc
-- [ ] Configurer scripts npm complets
-- [ ] Valider performance (Lighthouse > 90)
+- [ ] Initialiser Application Insights *(préparé - activation UC 1.10)*
+- [x] Documenter API pour micro-frontends
+- [x] Créer README avec instructions setup
+- [ ] Générer documentation JSDoc *(reporté UC suivantes)*
+- [x] Configurer scripts npm complets
+- [ ] Valider performance (Lighthouse > 90) *(à mesurer)*
 
 ## 🧪 Stratégie de Tests
 
@@ -157,38 +157,38 @@ describe('App Shell', () => {
 - Core Web Vitals dans les seuils
 
 ## 🔒 Sécurité
-- [ ] CSP avec nonce dynamique
-- [ ] Protection XSS via DOMPurify
-- [ ] CSRF tokens sur mutations
-- [ ] Variables d'environnement validées
-- [ ] HTTPS en développement
-- [ ] Préparation OAuth2/PKCE
+- [x] CSP avec nonce dynamique
+- [x] Protection XSS via DOMPurify
+- [ ] CSRF tokens sur mutations *(préparé - activation avec backend)*
+- [ ] Variables d'environnement validées *(préparé)*
+- [ ] HTTPS en développement *(optionnel)*
+- [x] Préparation OAuth2/PKCE
 
 ## ⚡ Performance
 
-| Métrique | Cible | Actuel |
-|----------|-------|--------|
-| Bundle Size | < 200KB | - |
-| Lighthouse | > 90 | - |
-| LCP | < 2.5s | - |
-| FID | < 100ms | - |
-| CLS | < 0.1 | - |
-| TTI | < 3s | - |
+| Métrique | Cible | Actuel | Statut |
+|----------|-------|--------|--------|
+| Bundle Size | < 200KB | À mesurer | ⏳ |
+| Lighthouse | > 90 | À mesurer | ⏳ |
+| LCP | < 2.5s | À mesurer | ⏳ |
+| FID | < 100ms | À mesurer | ⏳ |
+| CLS | < 0.1 | À mesurer | ⏳ |
+| TTI | < 3s | À mesurer | ⏳ |
 
 ## ♿ Accessibilité
-- [ ] Structure HTML sémantique
-- [ ] Navigation clavier complète
-- [ ] Attributs ARIA appropriés
-- [ ] Contraste 4.5:1 minimum
-- [ ] Skip links fonctionnels
-- [ ] Screen reader compatible
+- [x] Structure HTML sémantique
+- [x] Navigation clavier complète
+- [x] Attributs ARIA appropriés
+- [x] Contraste 4.5:1 minimum
+- [x] Skip links fonctionnels
+- [x] Screen reader compatible
 
 ## 🌍 Internationalisation
-- [ ] Setup i18next avec React
-- [ ] Extraction des chaînes hardcodées
-- [ ] Structure des fichiers de traduction
-- [ ] Support FR, EN, ES, IT
-- [ ] Format dates/nombres localisés
+- [x] Setup i18next avec React *(installé)*
+- [ ] Extraction des chaînes hardcodées *(UC 7.x)*
+- [ ] Structure des fichiers de traduction *(UC 7.x)*
+- [ ] Support FR, EN, ES, IT *(UC 7.x)*
+- [ ] Format dates/nombres localisés *(UC 7.x)*
 
 ## 🔗 Dépendances
 
@@ -222,16 +222,16 @@ describe('App Shell', () => {
 5. **Performance mobile**: Valider sur connexions 3G/4G réelles
 
 ## ✅ Definition of Done
-- [ ] Code review approuvée (min 2 reviewers)
-- [ ] Tests unitaires > 80% coverage
-- [ ] Build de production fonctionnel
-- [ ] Documentation README complète
-- [ ] Pas de warnings ESLint/TypeScript
-- [ ] Bundle size < 200KB vérifié
-- [ ] Lighthouse score > 90 validé
-- [ ] Tests E2E passants
-- [ ] Accessibilité WCAG 2.1 AA validée
-- [ ] Performance Web Vitals dans les seuils
+- [ ] Code review approuvée (min 2 reviewers) *(à faire)*
+- [ ] Tests unitaires > 80% coverage *(à compléter)*
+- [x] Build de production fonctionnel
+- [x] Documentation README complète
+- [x] Pas de warnings ESLint/TypeScript
+- [ ] Bundle size < 200KB vérifié *(à mesurer)*
+- [ ] Lighthouse score > 90 validé *(à mesurer)*
+- [ ] Tests E2E passants *(reporté)*
+- [x] Accessibilité WCAG 2.1 AA validée
+- [ ] Performance Web Vitals dans les seuils *(à mesurer)*
 
 ## 📊 Métriques de Succès
 
