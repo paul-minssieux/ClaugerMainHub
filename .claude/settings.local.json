@@ -71,7 +71,8 @@
       "Bash(npx tsc:*)",
       "Bash(npx vite:*)",
       "Bash(git fetch:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "mcp__Github__get_pull_request"
     ],
     "deny": [],
     "ask": []
