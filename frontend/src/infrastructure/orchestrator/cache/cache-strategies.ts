@@ -252,7 +252,14 @@ export class CacheStrategyManager {
         this.metrics.misses++
       }
       
-      return content
+      // Déterminer si c'était un hit ou miss (réel)
+      if (result.cacheHit) {
+        this.metrics.hits++
+      } else {
+        this.metrics.misses++
+      }
+      
+      return result.content
     } catch (error) {
       this.metrics.errors++
       throw error
