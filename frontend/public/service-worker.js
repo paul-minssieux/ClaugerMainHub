@@ -345,7 +345,17 @@ function fetchWithTimeout(request, timeout = 5000) {
     new Promise((_, reject) => 
       setTimeout(() => reject(new Error('Request timeout')), timeout)
     ),
-  ])
+  let timeoutId;
+  const timeoutPromise = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error('Request timeout')), timeout);
+  });
+  // Ensure the timeout is cleared when either promise settles
+  return Promise.race([
+    fetch(request),
+    timeoutPromise
+  ]).finally(() => {
+    clearTimeout(timeoutId);
+  });
 }
 
 /**
