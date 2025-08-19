@@ -228,6 +228,9 @@ export interface PiletCacheOptions {
  * État du pilet dans le cache
  */
 export interface CachedPilet {
+  id: string
+  name: string
+  version: string
   metadata: ClaugerPiletMetadata
   content: string
   timestamp: number

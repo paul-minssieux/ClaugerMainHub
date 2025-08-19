@@ -4,20 +4,13 @@ import React from 'react'
 import { Piral } from 'piral'
 import { ChakraProvider } from '@chakra-ui/react'
 import './index.css'
-import { piralInstance } from '@/infrastructure/orchestrator/instance/piral-instance'
+import { instance, PiralApp } from '@/infrastructure/orchestrator/instance/piral-instance'
 import { theme } from '@/theme/accessible-theme'
 
 // Configuration de l'environnement
 const isDevelopment = import.meta.env.DEV
 
-// Composant principal Piral
-const PiralApp: React.FC = () => {
-  return (
-    <ChakraProvider value={theme}>
-      <Piral instance={piralInstance} />
-    </ChakraProvider>
-  )
-}
+// Le composant PiralApp est maintenant importé depuis piral-instance
 
 // Initialisation de l'application
 async function initializeApp() {
@@ -43,7 +36,7 @@ async function initializeApp() {
     // Message de debug pour le développement
     if (isDevelopment) {
       console.log('🔧 Development mode active')
-      console.log('📦 Piral instance:', piralInstance)
+      console.log('📦 Piral instance:', instance)
       console.log('🌐 Environment variables loaded:')
       console.log('  - Feed URL:', import.meta.env.VITE_PILETS_FEED_URL || 'http://localhost:3001/api/pilets')
       console.log('  - API Base URL:', import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api')

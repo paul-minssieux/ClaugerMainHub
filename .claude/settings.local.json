@@ -69,7 +69,8 @@
       "Bash(sed:*)",
       "WebFetch(domain:www.chakra-ui.com)",
       "Bash(npx tsc:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(git fetch:*)"
     ],
     "deny": [],
     "ask": []
