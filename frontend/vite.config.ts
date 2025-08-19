@@ -4,7 +4,33 @@ import { resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: 'piral-codegen',
+      resolveId(id) {
+        if (id.endsWith('app.codegen')) {
+          return id;
+        }
+      },
+      load(id) {
+        if (id.endsWith('app.codegen')) {
+          return `
+            export const useRouteFilter = () => (route) => true;
+            export const applyStyle = () => {};
+            export const getSharedDependencies = () => ({});
+            export const createDefaultState = () => ({});
+            export const createNavigation = () => ({ publicPath: '/' });
+            export const publicPath = '/';
+            export const createRedirect = (path) => path;
+            export const fillDependencies = () => ({});
+            export const integrateDebugger = () => {};
+            export const integrateEmulator = () => {};
+          `;
+        }
+      }
+    }
+  ],
   
   resolve: {
     alias: {
@@ -55,6 +81,27 @@ export default defineConfig({
       '@emotion/react',
       '@emotion/styled',
       'framer-motion'
+    ],
+    exclude: [
+      'piral-core',
+      'piral-react',
+      'piral-notifications',
+      'piral-modals',
+      'piral-menu',
+      'piral-dashboard'
     ]
+  },
+
+  // Configuration spéciale pour Piral
+  define: {
+    // Éviter les erreurs de build avec Piral
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  },
+
+  // Configuration ESBuild pour les fichiers Piral
+  esbuild: {
+    loader: 'tsx',
+    include: /\.(tsx?|jsx?)$/,
+    exclude: []
   }
 })

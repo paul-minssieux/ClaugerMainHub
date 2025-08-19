@@ -1,0 +1,38 @@
+{
+  "name": "@clauger/pilet-template",
+  "version": "1.0.0",
+  "description": "Template for creating ClaugerMainHub pilets",
+  "main": "dist/index.js",
+  "source": "src/index.tsx",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "pilet debug",
+    "build": "pilet build",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "publish": "pilet publish",
+    "validate": "pilet validate",
+    "upgrade": "pilet upgrade"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "piral-cli": "^1.5.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@chakra-ui/react": "*",
+    "@clauger/mainhub-api": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "piral": {
+    "name": "ClaugerMainHub",
+    "version": "1.0.0",
+    "spec": "v2",
+    "framework": "piral-react"
+  }
+}

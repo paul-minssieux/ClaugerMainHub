@@ -74,7 +74,7 @@ class MicroFrontendAPIProvider implements MicroFrontendAPI {
       if (options?.replace) {
         window.history.replaceState(options.state || null, '', url)
       } else {
-        window.history.pushState(options.state || null, '', url)
+        window.history.pushState(options?.state || null, '', url)
       }
     }
   }

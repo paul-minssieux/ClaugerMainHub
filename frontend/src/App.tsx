@@ -29,7 +29,7 @@ function App() {
   }, [])
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider value={theme}>
       <FocusManager>
         <div className="app-container">
           {/* Skip Navigation Links */}

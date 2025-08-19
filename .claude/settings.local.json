@@ -60,7 +60,19 @@
       "Bash(npm create:*)",
       "Bash(npx husky init:*)",
       "Bash(git init:*)",
-      "Bash(npm run type-check:*)"
+      "Bash(npm run type-check:*)",
+      "mcp__Github__get_issue",
+      "Bash(git merge:*)",
+      "Bash(mv:*)",
+      "WebSearch",
+      "Bash(timeout 10s npm run dev)",
+      "Bash(sed:*)",
+      "WebFetch(domain:www.chakra-ui.com)",
+      "Bash(npx tsc:*)",
+      "Bash(npx vite:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "mcp__Github__get_pull_request"
     ],
     "deny": [],
     "ask": []
