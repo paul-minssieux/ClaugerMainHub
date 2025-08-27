@@ -37,6 +37,31 @@ export const PERMISSION_LEVELS = {
 }
 
 /**
+ * Determine if Piral's debug mode should be enabled.
+ *
+ * The `VITE_PIRAL_DEBUG` environment variable explicitly enables or disables
+ * debug mode when set to "true" or "false" (case insensitive). When the value
+ * is missing or invalid, debug mode defaults to `true` only in development
+ * environment to provide a better DX and stays disabled otherwise.
+ */
+function shouldEnableDebug(
+  environment: string,
+  envValue?: string
+): boolean {
+  const normalized = envValue?.toLowerCase()
+
+  if (normalized === 'true') {
+    return true
+  }
+
+  if (normalized === 'false') {
+    return false
+  }
+
+  return environment === 'development'
+}
+
+/**
  * Récupère la configuration selon l'environnement
  */
 export function getPiralConfig(): PiralInstanceConfig {
